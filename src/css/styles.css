@@ -25,88 +25,14 @@
 }
 
 .loader {
-  transform: rotateZ(45deg);
-  perspective: 1000px;
-  border-radius: 50%;
   width: 48px;
   height: 48px;
-  color: #fff;
-}
-
-.loader:before,
-.loader:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: inherit;
-  height: inherit;
+  border: 5px solid #0d0d0d;
+  border-bottom-color: #ff3d00;
   border-radius: 50%;
-  transform: rotateX(70deg);
-  animation: 1s spin linear infinite;
-}
-
-.loader:after {
-  color: #FF3D00;
-  transform: rotateY(70deg);
-  animation-delay: .4s;
-}
-
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotateZ(0deg);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) rotateZ(360deg);
-  }
-}
-
-@keyframes rotateccw {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
-  }
-}
-
-@keyframes spin {
-
-  0%,
-  100% {
-    box-shadow: .2em 0px 0 0px currentcolor;
-  }
-
-  12% {
-    box-shadow: .2em .2em 0 0 currentcolor;
-  }
-
-  25% {
-    box-shadow: 0 .2em 0 0px currentcolor;
-  }
-
-  37% {
-    box-shadow: -.2em .2em 0 0 currentcolor;
-  }
-
-  50% {
-    box-shadow: -.2em 0 0 0 currentcolor;
-  }
-
-  62% {
-    box-shadow: -.2em -.2em 0 0 currentcolor;
-  }
-
-  75% {
-    box-shadow: 0px -.2em 0 0 currentcolor;
-  }
-
-  87% {
-    box-shadow: .2em -.2em 0 0 currentcolor;
-  }
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
 }
 
 .position {
@@ -116,20 +42,51 @@
   transform: translate(-50%, -50%);
 }
 
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #0d0d0d;
-  border-bottom-color: #ff3d00;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
 .loader.is-hidden {
   opacity: 0;
   visibility: hidden;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #FFF;
+  animation: prixClipFix 2s linear infinite;
+}
+
+.loader::after {
+  inset: 8px;
+  transform: rotate3d(180, 90, 45, 180deg);
+  border-color: #FF3D00;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+  }
+
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+  }
 }
 
 .search-form {
@@ -144,6 +101,7 @@
 
 .search-input {
   border-radius: 4px;
+  border: 1px solid black;
   width: 272px;
   height: 40px;
 }
@@ -172,11 +130,10 @@ ul {
 
 .photo-container {
 
-  border: 1px solid #662020;
+  border: 1px solid #1b1d1b;
   width: 360px;
 
 }
-
 
 .info {
   display: flex;
