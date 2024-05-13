@@ -12,16 +12,21 @@ const loaderEl = document.querySelector('.loader');
 function onSearch(event) {
   event.preventDefault();
   const searchQuery = event.target.elements.searchKeyword.value.trim();
-  imgContainer.innerHTML = '';
+
+  if (imgContainer.innerHTML) {
+    imgContainer.innerHTML = '';
+  }
+
   if (searchQuery === '') {
-    return iziToast.error({
+    iziToast.error({
       message:
         'Sorry, there are no images matching your search query. Please try again!',
       position: 'topRight',
       color: 'yellow',
     });
+    return;
   }
-  imgContainer.innerHTML = '';
+
   loaderEl.classList.remove('is-hidden');
 
   fetchPhotos(searchQuery)
@@ -32,6 +37,7 @@ function onSearch(event) {
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topLeft',
         });
+        return;
       }
 
       imgContainer.innerHTML = createMarkup(imagesData.hits);
@@ -39,9 +45,14 @@ function onSearch(event) {
         captionsData: 'alt',
         captionsDelay: 250,
       });
-      /*   lightbox.refresh(); */
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      iziToast.error({
+        message: 'Error load images' + error.message,
+        position: 'topCenter',
+        color: 'red',
+      });
+    })
     .finally(() => {
       event.target.reset();
       loaderEl.classList.add('is-hidden');
