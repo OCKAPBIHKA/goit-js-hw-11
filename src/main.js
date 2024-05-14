@@ -52,7 +52,7 @@ function onSearch(event) {
 
       iziToast.error({
         message: errorMessage,
-        position: 'topLeft',
+        position: 'center',
         color: 'blue',
       });
     })
