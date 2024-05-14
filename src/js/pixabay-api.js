@@ -10,10 +10,16 @@ export const fetchPhotos = searchImage => {
     safesearch: 'true',
   });
 
-  return fetch(`${BASE_URL}/?${params}`).then(response => {
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-    return response.json();
-  });
+  return fetch(`${BASE_URL}/?${params}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .catch(error => {
+      iziToast.error({
+        title: 'Error load images',
+      });
+    });
 };

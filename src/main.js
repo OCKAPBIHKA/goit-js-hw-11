@@ -47,10 +47,13 @@ function onSearch(event) {
       });
     })
     .catch(error => {
+      const errorMessage = 'Error load images';
+      console.error(errorMessage);
+
       iziToast.error({
-        message: 'Error load images' + error.message,
-        position: 'topCenter',
-        color: 'red',
+        message: errorMessage,
+        position: 'topLeft',
+        color: 'blue',
       });
     })
     .finally(() => {
